@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/add-room.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="form-container fade-in">
+            <h2 class="fw-bold text-center mb-4">List Your Property</h2>
+            <p class="text-center text-muted mb-5">Reach thousands of students and professionals searching for a place
+                to stay.</p>
+
+            <form method="POST" enctype="multipart/form-data">
+                 {% csrf_token %} 
+
+                  {% if form.errors %}
+        <div style="color:red;">
+            {{ form.errors }}
+        </div>
+    {% endif %}
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Room/PG Name</label>
+                        <input type="text" name="name" class="form-control" placeholder="e.g. Cozy Studio Apartment" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Rent (per month)</label>
+                        <input type="number" name="price" class="form-control" placeholder="₹" required>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-bold">Location</label>
+                        <input type="text" name="location" class="form-control" placeholder="Full address" required>
+                    </div>
+                    <div class="col-12">
+    <label class="form-label fw-bold">Google Map Link</label>
+    <input type="text" name="map_link" class="form-control"
+           placeholder="Paste Google Maps embed link">
+</div>
+                    <div class="col-12">
+                        <label class="form-label fw-bold">Description</label>
+                        <textarea name="description" class="form-control" rows="4"
+                            placeholder="Describe the room, surroundings, and house rules..."></textarea>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-bold">Facilities</label>
+                        <div class="d-flex flex-wrap gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="wifi" id="wifi">
+                                <label class="form-check-label" for="wifi">WiFi</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="ac" id="ac">
+                                <label class="form-check-label" for="ac">AC</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="laundry" id="laundry">
+                                <label class="form-check-label" for="laundry">Laundry</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="kitchen"  id="kitchen">
+                                <label class="form-check-label" for="kitchen">Kitchen</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-bold">Upload Images</label>
+                        <input type="file" name="image" class="form-control" >
+                    </div>
+                    <div>
+                        <div class="row">
+ <div class="col-12 mt-4">
+                        <hr class="my-4">
+                        <h4 class="fw-bold mb-3"><i class="fas fa-user-circle me-2"></i>Owner Details</h4>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">Owner Name</label>
+                        <input type="text" name="Owner_name" class="form-control" placeholder="Your Full Name" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">Mobile Number</label>
+                        <input type="tel" name="Owner_phone"  class="form-control" placeholder="+91 00000 00000" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">Email ID</label>
+                        <input type="email" name="Owner_email" class="form-control" placeholder="example@email.com" required>
+                    </div>
+</div>
+                    <div class="col-12 mt-5 text-center">
+                        <button type="submit" class="btn btn-primary btn-lg px-5">Submit Listing</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

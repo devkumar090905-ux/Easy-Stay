@@ -1,0 +1,254 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Details | EasyStay</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .detail-img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .facility-card {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            height: 100%;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .facility-card:hover {
+            transform: translateY(-10px);
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .facility-card i {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+
+        .facility-card:hover i {
+            color: whitesmoke;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <i class="fas fa-home-alt me-2"></i>EasyStay
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home'  %}#rooms">Rooms</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'add_room' %}">Add Rooms</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <img id="" src="{{ room.image.url }}" class="detail-img fade-in" alt="Room View">
+                <h2 id="" class="fw-bold mb-3">{{room.name}}</h2>
+                <p id="" class="text-muted"><i class="fas fa-map-marker-alt me-2"></i>{{ room.location }}</p>
+                <hr>
+                <h4 class="fw-bold mb-3">Description</h4>
+                <p id="room-description" class="description"> {{room.description}} </p>
+
+                <h4 class="fw-bold mt-5 mb-4">Location Map</h4>
+                <div class="map-container mb-4"
+                    style="border-radius: 20px; overflow: hidden; box-shadow: var(--shadow);">
+                    <iframe src="{{ room.map_link }}" width="100%" height="400" style="border:0;" allowfullscreen=""
+                        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+
+                <h4 class="fw-bold mt-5 mb-4">Facilities Provided</h4>
+                <div class="row g-4">
+                    {% if room.wifi  %}
+                    <div class="col-6 col-md-3">
+                        <div class="facility-card">
+                            <i class="fas fa-wifi"></i>
+                            <p class="mb-0 fw-600">Free WiFi</p>
+                        </div>
+                    </div>
+                    {% endif %}
+
+
+                    {% if room.ac %}
+                    <div class="col-6 col-md-3">
+                        <div class="facility-card">
+                            <i class="fas fa-snowflake"></i>
+                            <p class="mb-0 fw-600">Air Conditioned</p>
+                        </div>
+                    </div>
+                    {% endif %}
+
+
+                    {% if room.laundry %}
+                    <div class="col-6 col-md-3">
+                        <div class="facility-card">
+                            <i class="fas fa-tshirt"></i>
+                            <p class="mb-0 fw-600">Laundry</p>
+                        </div>
+                    </div>
+                    {% endif %}
+
+
+                    {% if room.kitchen %}
+                    <div class="col-6 col-md-3">
+                        <div class="facility-card">
+                            <i class="fas fa-utensils"></i>
+                            <p class="mb-0 fw-600">Common Kitchen</p>
+                        </div>
+                    </div>
+                    {% endif %}
+
+
+                    {% if room.parking %}
+                    <div class="col-6 col-md-3">
+                        <div class="facility-card">
+                            <i class="fas fa-parking"></i>
+                            <p class="mb-0 fw-600">Parking</p>
+                        </div>
+                    </div>
+                    {% endif %}
+
+
+                    {% if room.security %}
+                    <div class="col-6 col-md-3">
+                        <div class="facility-card">
+                            <i class="fas fa-shield-alt"></i>
+                            <p class="mb-0 fw-600">24/7 Security</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card p-4 border-0 shadow-sm"
+                    style="border-radius: 25px; background: white; position: sticky; top: 100px;">
+                    <h3 id="room-rent" class="fw-bold color-accent">{{ room.price }} / month</h3>
+                    <p class="text-muted small">Inclusive of electricity and water bills*</p>
+                    <hr>
+                    <h5 class="fw-bold mb-3"><i class="fas fa-user-tie me-2"></i>Owner Details</h5>
+                    <div class="owner-info mb-4">
+                        <p class="mb-1"><strong>Name:</strong> <span id="owner-name">{{ room.Owner_name }}</span></p>
+                        <p class="mb-1"><strong>Mobile:</strong> <span id="owner-mobile">{{ room.Owner_phone }}</span></p>
+                        <p class="mb-1"><strong>Email:</strong> <span id="owner-email">{{ room.Owner_email }}</span></p>
+                    </div>
+                    <a id="whatsapp-btn" href="https://wa.me/91{{ room.owner_phone }}" target="_blank" class="btn btn-success w-100 btn-lg mb-3">
+                        <i class="fab fa-whatsapp me-2"></i>Chat on WhatsApp
+                    </a>
+                    <a id="call-btn" href="tel:{{ room.owner_phone }}" class="btn btn-primary w-100 btn-lg">
+                        <i class="fas fa-phone-alt me-2"></i>Call Now
+                    </a>
+                    <p class="text-center mt-3 text-muted small">No hidden charges</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <p class="text-white">&copy; 2026 EasyStay. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    {% comment %} <script>
+        const roomData = {
+            'skyline': {
+                title: 'Skyline Modern Studio',
+                location: 'Sector 62, Noida, Uttar Pradesh',
+                img: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=1200&q=80',
+                description: 'Experience luxury living in this fully furnished studio apartment. Located in the heart of the business district, it offers breathtaking city views, modern amenities, and proximity to major tech parks. Perfect for working professionals or couples.',
+                rent: '₹12,000 / month',
+                mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14008.114777546!2d77.3592455!3d28.6289299!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce505b2f2d6e3%3A0xed01815d9664654c!2sSector%2062%2C%20Noida%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1700000000000',
+                owner: {
+                    name: 'Shalini Pandey',
+                    mobile: '+91 8630330594',
+                    email: 'shalinipandey8630@gmail.com'
+                }
+            },
+            'comfort': {
+                title: 'Comfort Living PG',
+                location: 'DLF Phase 3, Gurgaon, Haryana',
+                img: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=1200&q=80',
+                description: 'A cozy and affordable PG for students and young professionals. Features spacious rooms, high-speed WiFi, and home-style food. Located near Cyber City with excellent transport links.',
+                rent: '₹8,500 / month',
+                mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14028.981882046!2d77.0827284!3d28.4841968!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1933e9bbf0b3%3A0x44558e0a811c766b!2sDLF%20Phase%203%2C%20Gurugram%2C%20Haryana!5e0!3m2!1sen!2sin!4v1700000000001',
+                owner: {
+                    name: 'Rajesh Kumar',
+                    mobile: '+91 9876543210',
+                    email: 'rajesh.comfort@gmail.com'
+                }
+            },
+            'premium': {
+                title: 'Premium Luxury Suite',
+                location: 'Koramangala, Bangalore, Karnataka',
+                img: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=1200&q=80',
+                description: 'An elite suite for those who demand the best. Featuring designer interiors, premium fixtures, and a private balcony. Located in one of Bangalore\'s most vibrant neighborhoods.',
+                rent: '₹25,000 / month',
+                mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15554.493774653!2d77.6186847!3d12.9351929!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae144ed891a31b%3A0xaba1a86b11299971!2sKoramangala%2C%20Bengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1700000000002',
+                owner: {
+                    name: 'Amit Sharma',
+                    mobile: '+91 9123456789',
+                    email: 'amit.premium@gmail.com'
+                }
+            }
+        };
+
+        // Load content based on ID
+        const urlParams = new URLSearchParams(window.location.search);
+        const roomId = urlParams.get('id') || 'skyline'; // Default to skyline
+        const data = roomData[roomId];
+
+        if (data) {
+            document.getElementById('room-title').innerText = data.title;
+            document.getElementById('room-location').innerHTML = `<i class="fas fa-map-marker-alt me-2"></i>` + data.location;
+            document.getElementById('room-img').src = data.img;
+            document.getElementById('room-description').innerText = data.description;
+            document.getElementById('room-rent').innerText = data.rent;
+            document.getElementById('location-map').src = data.mapUrl;
+            document.getElementById('owner-name').innerText = data.owner.name;
+            document.getElementById('owner-mobile').innerText = data.owner.mobile;
+            document.getElementById('owner-email').innerText = data.owner.email;
+
+            // Set WhatsApp link
+            const waNumber = data.owner.mobile.replace(/\D/g, '');
+            document.getElementById('whatsapp-btn').href = `https://wa.me/${waNumber}?text=Hi, I'm interested in ${data.title}`;
+
+            // Set Call link
+            document.getElementById('call-btn').href = `tel:${data.owner.mobile}`;
+
+            document.title = `${data.title} | EasyStay`;
+        }
+    </script> {% endcomment %}
+</body>
+
+</html>

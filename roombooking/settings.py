@@ -28,8 +28,8 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-)3f1^gsp+-mhja4*b1j)z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='*', cast=Csv())
-CSRF_TRUSTED_ORIGINS = ['https://*.ngrok-free.dev']
+ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ['https://*.ngrok-free.dev', 'https://*.up.railway.app']
 
 
 

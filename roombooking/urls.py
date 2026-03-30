@@ -29,6 +29,7 @@ urlpatterns = [
     path('room/<int:id>/', views.room_detail, name="room_detail"),
     # path("admin/", admin.site.urls),
     path("", include("rooms.urls")),
+    path("accounts/", include("accounts.urls")),
     
 
 

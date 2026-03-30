@@ -19,14 +19,7 @@ class Room(models.Model):
     
     
     image = models.ImageField(upload_to="rooms/", null=True, blank=True)
-    
-    
-    
-    
-    Owner_name = models.CharField(max_length=100)
-    Owner_phone = models.CharField(max_length=15)
-    Owner_email = models.EmailField()
-    
+    owner = models.ForeignKey('accounts.CustomUser', on_delete=models.CASCADE, related_name='rooms', null=True)
     
     def __str__(self):
         return self.name

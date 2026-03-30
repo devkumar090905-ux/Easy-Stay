@@ -1,20 +1,37 @@
-
 .form-container {
-            background: white;
-            padding: 40px;
-            border-radius: 30px;
-            box-shadow: var(--shadow);
-            max-width: 800px;
-            margin: 50px auto;
-        }
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 40px;
+    border-radius: 30px;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--card-shadow);
+    max-width: 800px;
+    margin: 50px auto;
+    color: var(--text-primary);
+}
 
-        .form-control {
-            border-radius: 10px;
-            padding: 12px;
-            border: 1px solid #dfe6e9;
-        }
+.form-control {
+    background: var(--secondary-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    border-radius: 12px;
+    padding: 12px 16px;
+    transition: var(--transition-smooth);
+}
 
-        .form-control:focus {
-            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
-            border-color: var(--accent-color);
-        }
+.form-control:focus {
+    background: var(--secondary-bg);
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    color: var(--text-primary);
+}
+
+.text-muted {
+    color: var(--text-secondary) !important;
+}
+
+hr {
+    border-color: var(--glass-border);
+    opacity: 0.3;
+}
